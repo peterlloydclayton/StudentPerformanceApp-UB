@@ -65,7 +65,7 @@
 ###############################################################################
 # Ignore html, htm, and cshtml files
 ###############################################################################
-Pages/Components/* linguist-vendored
-Pages/Shared/* linguist-vendored
-wwwroot/* linguist-vendored
-Pages/*.cshtml linguist-vendored
+Pages/Components/* linguist-vendored=true
+Pages/Shared/* linguist-vendored=true
+wwwroot/* linguist-vendored=true
+Pages/*.cshtml linguist-vendored=true
