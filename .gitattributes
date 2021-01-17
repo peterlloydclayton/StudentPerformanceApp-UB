@@ -68,4 +68,5 @@
 Pages/Components/* linguist-vendored=true
 Pages/Shared/* linguist-vendored=true
 wwwroot/* linguist-vendored=true
+Properties/* linguist-vendored=true
 Pages/*.cshtml linguist-vendored=true
