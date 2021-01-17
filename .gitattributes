@@ -70,3 +70,4 @@ Pages/Shared/* linguist-vendored=true
 wwwroot/* linguist-vendored=true
 Properties/* linguist-vendored=true
 Pages/*.cshtml linguist-vendored=true
+App.razor linguist-vendored=true
