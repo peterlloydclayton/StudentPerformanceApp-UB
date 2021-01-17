@@ -68,3 +68,4 @@
 Pages/Components/* linguist-vendored
 Pages/Shared/* linguist-vendored
 wwwroot/* linguist-vendored
+Pages/*.cshtml
