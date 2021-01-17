@@ -1,0 +1,50 @@
+﻿@page "/containertable"
+@*
+    /*
+    Peter Clayton, 12-04-2020
+    COURSE: CS652-Hadoop/NoSQL
+    University of Bridgeport
+    Master's Candidate May 2021
+    Department of Engineering
+
+    ContainerTable.razor:
+    Purpose: Blazor component. Reusable component for displaying table/collection data from the database
+    Provides for consistency of presentation on each page
+    */
+*@
+
+@using StudentPerformanceAPI.Models;
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>User Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Designation</th>
+        </tr>
+        <tr>
+            <th>userId</th>
+            <th>firstName</th>
+            <th>lastName</th>
+            <th>designation</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Users)
+        {
+            <tr>
+                <td>@user.UserId</td>
+                <td>@user.FirstName</td>
+                <td>@user.LastName</td>
+                <td>@user.Designation</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@code {
+    [Parameter]
+    public IEnumerable<User> Users { get; set; }
+}

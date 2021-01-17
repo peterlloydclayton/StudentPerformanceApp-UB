@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentPerformanceApp", "StudentPerformanceApp.csproj", "{7B710FD3-8735-41E0-BE62-D5AFF98750DD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentPerformanceAPI", "..\StudentPerformanceAPI\StudentPerformanceAPI.csproj", "{6A4A4DB1-6014-4C38-AD4A-33B5EE72A166}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7B710FD3-8735-41E0-BE62-D5AFF98750DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B710FD3-8735-41E0-BE62-D5AFF98750DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B710FD3-8735-41E0-BE62-D5AFF98750DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B710FD3-8735-41E0-BE62-D5AFF98750DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A4A4DB1-6014-4C38-AD4A-33B5EE72A166}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A4A4DB1-6014-4C38-AD4A-33B5EE72A166}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A4A4DB1-6014-4C38-AD4A-33B5EE72A166}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A4A4DB1-6014-4C38-AD4A-33B5EE72A166}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {83C71941-1559-4035-BD19-3FD488CE9D8B}
+	EndGlobalSection
+EndGlobal

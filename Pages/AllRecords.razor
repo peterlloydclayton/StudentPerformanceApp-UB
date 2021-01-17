@@ -1,0 +1,42 @@
+﻿@page "/all"
+@*
+    /*
+    Peter Clayton, 12-04-2020
+    COURSE: CS652-Hadoop/NoSQL
+    University of Bridgeport
+    Master's Candidate May 2021
+    Department of Engineering
+
+    AllReccords.razor:
+    Purpose: Blazor Page. Displays a list of first 50 records in the StudentPerformanceDocuments collection
+    */
+*@
+
+@using StudentPerformanceApp.Data
+@using StudentPerformanceAPI.Models
+@using StudentPerformanceApp.Pages.Components
+
+
+<h3>Full List Of Records</h3>
+
+@if (Users == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <ContainerTable Users="@Users"></ContainerTable>
+}
+
+
+@code {
+    [Inject]
+    public IStudentPerformanceService ISPerfService { get; set; }
+
+    public IEnumerable<User> Users { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Users = (await ISPerfService.ListAllUsersAsync()).ToList(); // Calls an internal service page to access the external api
+    }
+}

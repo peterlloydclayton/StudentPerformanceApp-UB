@@ -1,0 +1,106 @@
+﻿@page "/update"
+@*
+    /*
+    Peter Clayton, 12-04-2020
+    COURSE: CS652-Hadoop/NoSQL
+    University of Bridgeport
+    Master's Candidate May 2021
+    Department of Engineering
+
+    Update.razor:
+    Purpose: Blazor Page. Updates a document in the StudentPerformanceDocuments collection based on search criteria
+    */
+*@
+
+@using StudentPerformanceApp.Data
+@using StudentPerformanceApp.Pages.Components;
+@using StudentPerformanceApp.Pages.FormModels;
+@using StudentPerformanceAPI.Models
+
+<h3>Update Document</h3>
+
+<EditForm Model="@updateModel" OnValidSubmit="@UpdateUsersAsync">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="col-12 row">
+        <label class="col-2 font-weight-bold">Record Field</label>
+        <InputText class="form-control col-3" @bind-Value="updateModel.filterKey" placeholder="Record Field" />
+    </div>
+    <br />
+    <div class="col-12 row">
+        <label class="col-2 font-weight-bold">Record Field Criteria</label>
+        <InputText class="form-control col-3" @bind-Value="updateModel.filterValue" placeholder="Record Field Criteria" />
+    </div>
+    <br />
+    <div class="col-12 row">
+        <label class="col-2 font-weight-bold">Field To Update</label>
+        <InputText class="form-control col-3" @bind-Value="updateModel.updateKey" placeholder="Update Field Name" />
+    </div>
+    <br />
+    <div class="col-12 row">
+        <label class="col-2 font-weight-bold">New Value For Field</label>
+        <InputText class="form-control col-3" @bind-Value="updateModel.updateValue" placeholder="Update Value" />
+    </div>
+    <br />
+    <div class="col-12 row">
+        <span class="col-2"></span>
+        <input type="reset" class="form-control col-1 btn btn-outline-primary" value="Clear" />
+        <span>&nbsp;</span>
+        <input type="submit" class="form-control col-1 btn btn-primary" value="Update" />
+        <br />
+    </div>
+</EditForm>
+@if (Result == true)
+{
+    <p>
+        <br />
+        <h3>Successful Update Transaction!</h3>
+        <br />
+    </p>
+}
+else if (firstLoad == false)
+{
+    <p>
+        <br />
+        <h3>Update Transaction Failed!</h3>
+        <br />
+    </p>
+}
+
+@if (Users == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <ContainerTable Users="@Users"></ContainerTable>
+}
+
+
+@code {
+    [Inject]
+    public IStudentPerformanceService ISPerfService { get; set; }
+    public UpdateFormModel updateModel { get; set; }
+
+
+    public IEnumerable<User> Users { get; set; }
+    public bool Result { get; set; }
+    bool firstLoad = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        updateModel = new UpdateFormModel();
+        Users = (await ISPerfService.ListAllUsersAsync()).ToList();
+    }
+
+    protected async Task<bool> UpdateUsersAsync()
+    {
+        string container = "studentPerformanceDocuments";
+        var result = await ISPerfService.UpdateCollectionAsync(container, updateModel.filterKey, updateModel.filterValue, updateModel.updateKey, updateModel.updateValue);
+        Result = result;
+        firstLoad = false;
+        updateModel = new UpdateFormModel();
+        Users = (await ISPerfService.ListAllUsersAsync()).ToList();
+        return result;
+    }
+}

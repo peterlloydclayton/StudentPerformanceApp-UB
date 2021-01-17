@@ -1,0 +1,95 @@
+﻿@page "/create"
+@*
+    /*
+    Peter Clayton, 12-04-2020
+    COURSE: CS652-Hadoop/NoSQL
+    University of Bridgeport
+    Master's Candidate May 2021
+    Department of Engineering
+
+    Create.razor:
+    Purpose: Blazor Page. Creates a new document in the StudentPerformanceDocuments collection
+    */
+*@
+
+@using StudentPerformanceApp.Data
+@using StudentPerformanceApp.Pages.FormModels
+@using StudentPerformanceApp.Pages.Components
+@using StudentPerformanceAPI.Models;
+
+
+<h3>Create A New User!</h3>
+
+<EditForm Model="@userModel" OnValidSubmit="@CreateUserAsync">
+<DataAnnotationsValidator />
+    <ValidationSummary/>
+    <div class="col-12 row">
+        <label class="col-2 font-weight-bold">User ID</label>
+        <InputNumber class="form-control col-3" @bind-Value="userModel.UserId" placeholder="User Id" />
+    </div>
+    <br />
+    <div class="col-12 row">
+        <label class="col-2 font-weight-bold">First Name</label>
+        <InputText class="form-control col-3" @bind-Value="userModel.FirstName" placeholder="First Name" />
+    </div>
+    <br />
+    <div class="col-12 row">
+        <label class="col-2 font-weight-bold">Last Name</label>
+        <InputText class="form-control col-3" @bind-Value="userModel.LastName" placeholder="Last Name" />
+    </div>
+    <br />
+    <div class="col-12 row">
+        <label class="col-2 font-weight-bold">Designation</label>
+        <InputText class="form-control col-3" @bind-Value="userModel.Designation" placeholder="Designation" />
+    </div>
+    <br />
+    <div class="col-12 row">
+        <span class="col-2"></span>
+        <input type="reset" class="form-control col-1 btn btn-outline-primary" value="Clear" />
+        <span>&nbsp;</span>
+        <input type="submit" class="form-control col-1 btn btn-primary" value="Create" />
+        <br />
+    </div>
+</EditForm>
+
+<p>
+    <br />
+    <h3>@Result</h3>
+    <br />
+</p>
+
+
+@if (Users == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <ContainerTable Users="@Users"></ContainerTable>
+}
+
+
+@code {
+    [Inject]
+    public IStudentPerformanceService ISPerfService { get; set; }
+    public UserFormModel userModel { get; set; }
+
+    public IEnumerable<User> Users { get; set; }
+    private string Result { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        userModel = new UserFormModel();
+        Users = (await ISPerfService.ListAllUsersAsync()).ToList();// Calls an internal service page to access the external api
+    }
+
+    protected async Task CreateUserAsync()
+    {
+        string container = "studentPerformanceDocuments";
+        var result = await ISPerfService.CreateUserAsync(container, userModel); // Calls an internal service page to access the external api
+        Result = "Created User: " + result.FirstName + " " + result.LastName + ", Id: " + result.UserId;
+        userModel = new UserFormModel(); // Clear out the form data
+        Users = (await ISPerfService.ListAllUsersAsync()).ToList();
+
+    }
+}

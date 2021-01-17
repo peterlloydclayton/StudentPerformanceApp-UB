@@ -1,0 +1,96 @@
+﻿@page "/read"
+@*
+    /*
+    Peter Clayton, 12-04-2020
+    COURSE: CS652-Hadoop/NoSQL
+    University of Bridgeport
+    Master's Candidate May 2021
+    Department of Engineering
+
+    Read.razor:
+    Purpose: Blazor Page. Reads a document in the StudentPerformanceDocuments collection based on search criteria
+    */
+*@
+
+@using StudentPerformanceApp.Data;
+@using StudentPerformanceApp.Pages.FormModels;
+@using StudentPerformanceApp.Pages.Components;
+@using StudentPerformanceAPI.Models;
+@using System.ComponentModel.DataAnnotations;
+
+
+<h3>Retrieving a user record by Id</h3>
+<br />
+<br />
+<EditForm Model="idsModel" OnValidSubmit="GetUserByIDAsync">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="col-12 row">
+        <label class="col-2 font-weight-bold">User ID</label>
+        <InputText class="form-control col-3" @bind-Value="idsModel.ID" placeholder="Enter User ID" />
+    </div>
+    <br />
+    <div class="col-12 row">
+        <span class="col-2"></span>
+        <input type="submit" class="form-control col-1 btn btn-primary" value="Search" />
+        <br />
+    </div>
+</EditForm>
+
+
+@if (UsersResults == null)
+{
+}
+else
+{
+    <br />
+    <h3>Search Results</h3>
+
+    <ContainerTable Users="@UsersResults"></ContainerTable>
+    <br />
+}
+
+<h3>All Records</h3>
+@if (Users == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <ContainerTable Users="@Users"></ContainerTable>
+}
+
+
+@code {
+
+    [Inject]
+    public IStudentPerformanceService ISPerfService { get; set; }
+
+    public IEnumerable<User> Users { get; set; }
+    public IEnumerable<User> UsersResults { get; set; }
+
+    public class IDFormModel
+    {
+        [Required]
+        public string ID { get; set; }
+    }
+    public IDFormModel idsModel { get; set; }
+
+    public string Result { get; set; }
+    public string DBQuery { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        idsModel = new IDFormModel();
+        Users = (await ISPerfService.ListAllUsersAsync()).ToList();
+    }
+
+    protected async Task GetUserByIDAsync()
+    {
+        string container = "studentPerformanceDocuments";
+        string userIDFieldName = "userId";
+        string filter = userIDFieldName + "/" + idsModel.ID;
+        UsersResults = (await ISPerfService.GetUsersAsync(container, filter)).ToList();
+        idsModel = new IDFormModel();
+    }
+}
