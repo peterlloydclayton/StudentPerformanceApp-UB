@@ -61,3 +61,10 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+###############################################################################
+# Ignore html, htm, and cshtml files
+###############################################################################
+*.html linguist-detectable=false
+*.htm inguist-detectable=false
+*.cshtml inguist-detectable=false
