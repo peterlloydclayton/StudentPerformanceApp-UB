@@ -65,6 +65,6 @@
 ###############################################################################
 # Ignore html, htm, and cshtml files
 ###############################################################################
-Pages/*.html linguist-detectable=false
-Pages/*.htm inguist-detectable=false
-Pages/*.cshtml inguist-detectable=false
+Pages/Components/* linguist-vendored
+Pages/Shared/* linguist-vendored
+wwwroot/* linguist-vendored
