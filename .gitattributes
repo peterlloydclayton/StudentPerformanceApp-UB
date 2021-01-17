@@ -61,13 +61,3 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
-
-###############################################################################
-# Ignore html, htm, and cshtml files
-###############################################################################
-Pages/Components/* linguist-vendored=true
-Pages/Shared/* linguist-vendored=true
-wwwroot/* linguist-vendored=true
-Properties/* linguist-vendored=true
-Pages/*.cshtml linguist-vendored=true
-App.razor linguist-vendored=true
