@@ -65,6 +65,6 @@
 ###############################################################################
 # Ignore html, htm, and cshtml files
 ###############################################################################
-*.html linguist-detectable=false
-*.htm inguist-detectable=false
-*.cshtml inguist-detectable=false
+Pages/*.html linguist-detectable=false
+Pages/*.htm inguist-detectable=false
+Pages/*.cshtml inguist-detectable=false
